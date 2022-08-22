@@ -1,6 +1,6 @@
 
 ## Getting Started
-## You can access api at following route. 
+### You can access api at following route. 
 ```bash
 /api/{$slug}  # slug variable is shape of the pokemon
 ```
