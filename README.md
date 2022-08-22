@@ -13,5 +13,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## You can access api at following route. 
 ```bash
-/api/{$slug}  # slug is shape of the pokemon
+/api/{$slug}  # slug variable is shape of the pokemon
 ```
