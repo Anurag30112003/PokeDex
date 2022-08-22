@@ -6,7 +6,9 @@
 ```
 Installing 
 ```bash
-npm install
+npm install 
+# or
+yarn install
 ```
 Running the development server:
 
