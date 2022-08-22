@@ -14,18 +14,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const pokemon = await fetch(`${BASE_URL}${slug}`);
     const data = await pokemon.json();
     const r = data.pokemon_species;
+
+    interface Pokemon {
+      name: string[];
+      image: string[];
+    }
     let h: string[] = [];
     let t: string[] = [];
 
-    r.forEach(async (element: any) => {
-        const k = element.name;
-        const i = getSprites(k);
-        h.push(k);
-        t.push(await i);
-    });
-    res.statusCode = 200;
-    res.send(JSON.stringify({ pokemon: h, image: t }));
+    const pokemonData: Pokemon = {} as Pokemon;
 
+    r.forEach(async (element: any) => {
+      const k = element.name;
+      h.push(k);
+      const i = await getSprites(k);
+      t.push(i);
+    });
+    console.log(t);
+    pokemonData.name = h;
+    pokemonData.image = t;
+    res.statusCode = 200;
+    res.send(JSON.stringify(pokemonData));
   } catch (error) {
     res.statusCode = 500;
     res.send(JSON.stringify({ message: "error fetching pokemon" }));
