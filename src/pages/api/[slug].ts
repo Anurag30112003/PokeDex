@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-const BASE_URL = "https://pokeapi.co/api/v2/pokemon-shape/";
+const BASE_URL:string = "https://pokeapi.co/api/v2/pokemon-shape/";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const slug = req.query["slug"];
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     );
     const data = await pokemon.json();
     const r = data.pokemon_species;
-    const h :any = []
+    let h:string[] = [];
     r.forEach((element: any) => {
       const k = element.name;
       h.push(k);
