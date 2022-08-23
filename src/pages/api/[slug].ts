@@ -19,28 +19,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       name: string[];
       image: string[];
     }
-    let h: string[] = [];
-    let t: string[] = [];
+    // let h: string[] = [];
+    // let t: string[] = [];
 
     const pokemonData: Pokemon = {} as Pokemon;
 
-    r.forEach(async (element: any) => {
-      const k = element.name;
-      h.push(k);
-      const i:string = await getSprites(k);
-      t.push(i);
-    }); 
-
-    // const text:[]  = r.map(async (element: any) => {
-    //   const k = element.name
+    // r.forEach(async (element: any) => {
+    //   const k = element.name;
+    //   h.push(k);
     //   const i:string = await getSprites(k);
-    //   return  [i,k]
-    // }) 
-    // console.log(text);
-    pokemonData.name = h;
-    pokemonData.image = t;
+    //   t.push(i);
+    // }); 
+
+    const text:[]  = r.map(async (element: any) => {
+      const k = element.name
+      const i:string = await getSprites(k);
+      return  [i,k]
+    }) 
+    console.log(text);
+    // pokemonData.name = h;
+    // pokemonData.image = t;
     res.statusCode = 200;
-    res.send(JSON.stringify(pokemonData));
+    res.send(JSON.stringify(text));
   } catch (error) {
     res.statusCode = 500;
     res.send(JSON.stringify({ message: "error fetching pokemon" }));
