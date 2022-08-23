@@ -27,8 +27,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     r.forEach(async (element: any) => {
       const k = element.name;
       h.push(k);
-      const i = await getSprites(k);
+      const i:string = await getSprites(k);
       t.push(i);
+      console.log(t)
     });
     console.log(t);
     pokemonData.name = h;
