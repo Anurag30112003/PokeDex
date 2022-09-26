@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const k = element.name;
       return k;
     });
-    console.log(hello);
+    // console.log(hello);
     res.statusCode = 200;
       res.send(JSON.stringify(hello));
   } catch (error) {
