@@ -1,40 +1,53 @@
 import type { NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
-// import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  // slug as input and fetch data from /api/slug
-  const [slug] = React.useState("");
-  const [data, setData] = React.useState<any>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  React.useEffect(() => {
-    setIsLoading(true);
-    fetch(`/api/${slug}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      });
-  }, []);
-  if (isLoading) return <p>Loading...</p>;
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const dataObj = Object.fromEntries(data);
+    setLoading(true);
 
+    const response = await fetch("api/pokemon", {
+      method: "POST",
+      body: JSON.stringify({ slug: dataObj.slug }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    setData(json);
+    setLoading(false);
+  };
   return (
     <>
       <Head>
         <title>Pokedex</title>
         <meta name="description" content="pokemon api made easy" />
       </Head>
-      <h1>{data}</h1>
-      <form>
-        <input type="text" name="slug" />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          required
+          className="md:text-xl text-base resize rounded-md mt-5 px-2 md:px-20 md:py-5 py-3 "
+          name="slug"
+          placeholder="Enter a topic"
+        />
         <button type="submit">Submit</button>
+        <div>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            data.map((item: any) => (
+                <p>{item}</p>
+            ))
+          )}      
+        </div>
       </form>
     </>
   );
