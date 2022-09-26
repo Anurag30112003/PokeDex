@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 
 const Home: NextPage = () => {
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
             <p>Loading...</p>
           ) : (
             data.map((item: any) => (
-                <p>{item}</p>
+              <div key={item}> {item} </div>
             ))
           )}      
         </div>
